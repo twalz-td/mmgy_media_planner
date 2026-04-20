@@ -84,7 +84,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Figtree',sans-serif;font
 .tab-pane.active{display:block;}
 
 /* ── CHANNEL ROWS ── */
-.ch-row{display:grid;grid-template-columns:18px 1fr 70px 52px 54px 62px;gap:10px;align-items:center;padding:10px 24px;border-bottom:1px solid var(--rule-light);transition:background .12s;}
+.ch-row{display:grid;grid-template-columns:18px 1fr 70px 120px 54px 62px 110px;gap:10px;align-items:center;padding:10px 24px;border-bottom:1px solid var(--rule-light);transition:background .12s;}
 .ch-row:last-child{border-bottom:none;}
 .ch-row:hover{background:var(--bg);}
 .ch-num{font-size:11px;color:var(--ink-4);font-family:'JetBrains Mono';}
@@ -938,16 +938,16 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <script>
 // ── DATA MODEL ──────────────────────────────────────────────
 const CHANNELS = [
-  { id:'search', name:'Paid Search',         type:'Digital · Lower Funnel', funnel:'lower', cpmDef:4.5,  roi:3.00, color:'#E8581A', base:.14, minDef:5, belowBase:'rising', cpmConf:'benchmarked', roiConf:'benchmarked', cpmSrc:'Google Travel Benchmarks 2024', roiSrc:'Sojern State of Travel Advertising 2024' },
-  { id:'ota',    name:'OTA Partnerships',     type:'Digital · Lower Funnel', funnel:'lower', cpmDef:6.0,  roi:2.49, color:'#C44A10', base:.08, minDef:3, belowBase:'rising', cpmConf:'estimated',   roiConf:'benchmarked', cpmSrc:'TravelDesk estimate — replace with contracted rates', roiSrc:'Expedia/Booking conversion data, industry avg' },
-  { id:'social', name:'Paid Social',          type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:9.0,  roi:2.12, color:'#F47B47', base:.13, minDef:5, belowBase:'rising', cpmConf:'benchmarked', roiConf:'benchmarked', cpmSrc:'Meta Travel Vertical Benchmarks Q3 2025', roiSrc:'Meta Travel insights, mid-funnel attribution' },
-  { id:'dv360',  name:'DV360 / Programmatic', type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:5.5,  roi:1.74, color:'#FAA07A', base:.10, minDef:3, belowBase:'rising', cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'DV360 campaign actuals from VO LP Optimizer', roiSrc:'TravelDesk estimate — replace with post-buy data' },
-  { id:'digvid', name:'Digital Video',        type:'Digital · Upper Funnel', funnel:'upper', cpmDef:11.0, roi:1.48, color:'#2D5CC8', base:.08, minDef:3, belowBase:'flat',   cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Industry video benchmark, premium partners', roiSrc:'Upper funnel attribution — estimated' },
-  { id:'ctvdom', name:'CTV / Streaming TV',   type:'Digital · Upper Funnel', funnel:'upper', cpmDef:14.0, roi:1.36, color:'#1A3B8C', base:.12, minDef:5, belowBase:'cliff',  cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Streaming TV travel vertical avg 2024', roiSrc:'TravelDesk estimate — limited attribution data' },
-  { id:'audio',  name:'Streaming Audio',      type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:7.5,  roi:1.23, color:'#4A9EE8', base:.06, minDef:2, belowBase:'flat',   cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Spotify/iHeart travel benchmarks', roiSrc:'TravelDesk estimate' },
-  { id:'ooh',    name:'Out of Home',          type:'Traditional · Awareness',funnel:'upper', cpmDef:8.5,  roi:1.11, color:'#94A3B8', base:.10, minDef:3, belowBase:'cliff',  cpmConf:'estimated',   roiConf:'estimated',   cpmSrc:'OOH market estimates — replace with vendor rates', roiSrc:'Estimated — OOH attribution difficult to isolate' },
-  { id:'tv',     name:'Broadcast TV',         type:'Traditional · Awareness',funnel:'upper', cpmDef:19.0, roi:0.98, color:'#64748B', base:.15, minDef:5, belowBase:'cliff',  cpmConf:'estimated',   roiConf:'benchmarked', cpmSrc:'Broadcast estimate — replace with buy data', roiSrc:'W5 awareness lift data supports upper-funnel necessity' },
-  { id:'print',  name:'Print / Editorial',    type:'Traditional · Awareness',funnel:'upper', cpmDef:22.0, roi:0.60, color:'#CBD5E1', base:.04, minDef:0, belowBase:'flat',   cpmConf:'estimated',   roiConf:'estimated',   cpmSrc:'Editorial rate card estimate', roiSrc:'Below-benchmark ROI — brand adjacency value only' },
+  { id:'search', name:'Paid Search',         type:'Digital · Lower Funnel', funnel:'lower', cpmDef:4.5,  roi:3.00, color:'#E8581A', base:.14, minDef:5,  maxDef:35, belowBase:'rising', cpmConf:'benchmarked', roiConf:'benchmarked', cpmSrc:'Google Travel Benchmarks 2024', roiSrc:'Sojern State of Travel Advertising 2024' },
+  { id:'ota',    name:'OTA Partnerships',     type:'Digital · Lower Funnel', funnel:'lower', cpmDef:6.0,  roi:2.49, color:'#C44A10', base:.08, minDef:3,  maxDef:20, belowBase:'rising', cpmConf:'estimated',   roiConf:'benchmarked', cpmSrc:'TravelDesk estimate — replace with contracted rates', roiSrc:'Expedia/Booking conversion data, industry avg' },
+  { id:'social', name:'Paid Social',          type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:9.0,  roi:2.12, color:'#F47B47', base:.13, minDef:5,  maxDef:25, belowBase:'rising', cpmConf:'benchmarked', roiConf:'benchmarked', cpmSrc:'Meta Travel Vertical Benchmarks Q3 2025', roiSrc:'Meta Travel insights, mid-funnel attribution' },
+  { id:'dv360',  name:'DV360 / Programmatic', type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:5.5,  roi:1.74, color:'#FAA07A', base:.10, minDef:3,  maxDef:25, belowBase:'rising', cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'DV360 campaign actuals from VO LP Optimizer', roiSrc:'TravelDesk estimate — replace with post-buy data' },
+  { id:'digvid', name:'Digital Video',        type:'Digital · Upper Funnel', funnel:'upper', cpmDef:11.0, roi:1.48, color:'#2D5CC8', base:.08, minDef:3,  maxDef:20, belowBase:'flat',   cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Industry video benchmark, premium partners', roiSrc:'Upper funnel attribution — estimated' },
+  { id:'ctvdom', name:'CTV / Streaming TV',   type:'Digital · Upper Funnel', funnel:'upper', cpmDef:14.0, roi:1.36, color:'#1A3B8C', base:.12, minDef:5,  maxDef:25, belowBase:'cliff',  cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Streaming TV travel vertical avg 2024', roiSrc:'TravelDesk estimate — limited attribution data' },
+  { id:'tv',     name:'Broadcast TV',         type:'Traditional · Awareness',funnel:'upper', cpmDef:19.0, roi:0.98, color:'#64748B', base:.15, minDef:5,  maxDef:25, belowBase:'cliff',  cpmConf:'estimated',   roiConf:'benchmarked', cpmSrc:'Broadcast estimate — replace with buy data', roiSrc:'W5 awareness lift data supports upper-funnel necessity' },
+  { id:'audio',  name:'Streaming Audio',      type:'Digital · Mid Funnel',   funnel:'mid',   cpmDef:7.5,  roi:1.23, color:'#4A9EE8', base:.06, minDef:2,  maxDef:15, belowBase:'flat',   cpmConf:'benchmarked', roiConf:'estimated',   cpmSrc:'Spotify/iHeart travel benchmarks', roiSrc:'TravelDesk estimate' },
+  { id:'ooh',    name:'Out of Home',          type:'Traditional · Awareness',funnel:'upper', cpmDef:30.0, roi:1.11, color:'#94A3B8', base:.10, minDef:3,  maxDef:20, belowBase:'cliff',  cpmConf:'estimated',   roiConf:'estimated',   cpmSrc:'Effective reach CPM — normalized from showings-based OOH to impression-equivalent basis', roiSrc:'Estimated — OOH attribution difficult to isolate' },
+  { id:'print',  name:'Print / Editorial',    type:'Traditional · Awareness',funnel:'upper', cpmDef:22.0, roi:0.60, color:'#CBD5E1', base:.04, minDef:0,  maxDef:10, belowBase:'flat',   cpmConf:'estimated',   roiConf:'estimated',   cpmSrc:'Editorial rate card estimate', roiSrc:'Below-benchmark ROI — brand adjacency value only' },
 ];
 
 const MARKETS = [
@@ -974,18 +974,25 @@ const SEASON = [
 // ── STATE ───────────────────────────────────────────────────
 let S = {
   budget:40, objective:'roi', shoulder:30, awarenessFloor:20,
-  alloc:{}, mins:{}, cpms:{}, rois:{}, roiConfs:{}, cpmConfs:{},
+  alloc:{}, mins:{}, maxs:{}, cpms:{}, rois:{}, roiConfs:{}, cpmConfs:{},
+  baseAlloc:{}, baseAllocWeightedAvg: 0,
   optimized:false, cadRate:0.711,
 };
 
 CHANNELS.forEach(c => {
   S.alloc[c.id] = c.base;
   S.mins[c.id]  = c.minDef;
+  S.maxs[c.id]  = c.maxDef;
   S.cpms[c.id]  = c.cpmDef;
   S.rois[c.id]  = c.roi;
   S.roiConfs[c.id] = c.roiConf;
   S.cpmConfs[c.id] = c.cpmConf;
 });
+// Freeze baseline snapshot — ratio = 1.0 reference for diminishing returns
+CHANNELS.forEach(c => { S.baseAlloc[c.id] = c.base; });
+// Freeze normalization denominator — allocation-weighted avg of ROI weights at baseline.
+// Must never change mid-session or the normalization fights the optimizer.
+S.baseAllocWeightedAvg = CHANNELS.reduce((s, c) => s + c.base * c.roi, 0);
 
 // ── BOOT ────────────────────────────────────────────────────
 function boot() {
@@ -1004,6 +1011,19 @@ function confClass(c) { return c==='confirmed'?'cb-c': c==='benchmarked'?'cb-b':
 function confLabel(c) { return c==='confirmed'?'CONFIRMED': c==='benchmarked'?'BENCHMARK':'ESTIMATE'; }
 function confDot(c)   { return c==='confirmed'?'conf-c': c==='benchmarked'?'conf-b':'conf-e'; }
 
+// ── MARGINAL RETURN ─────────────────────────────────────────
+// Returns the incremental $/$ return for the next dollar into a channel
+// at the current allocation. Same numerical derivative used by the optimizer.
+function calcMarginal(id) {
+  const eps   = 0.001;
+  const saved = S.alloc[id];
+  const before = calcChannelReturns().find(r => r.ch.id === id).channelImpact;
+  S.alloc[id]  = saved + eps;
+  const after  = calcChannelReturns().find(r => r.ch.id === id).channelImpact;
+  S.alloc[id]  = saved;
+  return (after - before) / (eps * S.budget * 1e6);
+}
+
 // ── CHANNELS ────────────────────────────────────────────────
 function renderChannels() {
   let html = '';
@@ -1018,6 +1038,12 @@ function renderChannels() {
     const chRet    = chRetMap[ch.id];
     const effRet   = chRet ? Math.round(chRet.effectiveReturn) : 0;
     const retColor = effRet > 434 ? 'var(--green)' : 'var(--ink-4)';
+
+    // Marginal return — next dollar into this channel
+    const margRet  = Math.round(calcMarginal(ch.id));
+    const margColor = margRet > effRet ? 'var(--green)' : margRet < effRet ? 'var(--red)' : 'var(--ink-4)';
+    const margLabel = S.optimized ? `<div style="font-size:9px;color:${margColor};font-weight:400;margin-top:2px;">→ $${margRet.toLocaleString()} next $</div>` : '';
+
     html += `
     <div class="ch-row">
       <div class="ch-num">${i+1}</div>
@@ -1029,17 +1055,25 @@ function renderChannels() {
       <div style="font-family:'JetBrains Mono';font-size:11px;font-weight:500;color:${retColor};text-align:right;line-height:1.3;">
         $${effRet.toLocaleString()}
         <div style="font-size:9px;color:var(--ink-4);font-weight:400;">per $</div>
+        ${margLabel}
       </div>
-      <div>
-        <div style="font-size:9px;color:var(--ink-4);font-family:'JetBrains Mono';margin-bottom:3px;">MIN %</div>
-        <input class="min-inp" type="number" value="${S.mins[ch.id]}" min="0" max="30" onchange="onMin('${ch.id}',this.value)">
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <div>
+          <div style="font-size:9px;color:var(--ink-4);font-family:'JetBrains Mono';margin-bottom:3px;text-align:center;">MIN %</div>
+          <input class="min-inp" type="number" value="${S.mins[ch.id]}" min="0" max="30" onchange="onMin('${ch.id}',this.value)">
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--ink-4);font-family:'JetBrains Mono';margin-bottom:3px;text-align:center;">MAX %</div>
+          <input class="min-inp" type="number" value="${S.maxs[ch.id]}" min="0" max="100" onchange="onMax('${ch.id}',this.value)">
+        </div>
       </div>
       <div class="ch-pct ${S.optimized?"live":""}">${pct}%</div>
       <div class="ch-dollars">$${dols}M</div>
+      <canvas id="spark-${ch.id}" width="110" height="44" style="display:block;cursor:default;" title="${ch.name} diminishing returns curve"></canvas>
     </div>`;
 
-    // After CTV row: inject combined awareness indicator
-    if (ch.id === 'ctvdom') {
+    // After TV row: inject combined awareness indicator
+    if (ch.id === 'tv') {
       const combined    = ((S.alloc['tv']||0) + (S.alloc['ctvdom']||0)) * 100;
       const floor       = S.awarenessFloor || 20;
       const isBelow     = combined < floor;
@@ -1054,9 +1088,111 @@ function renderChannels() {
   });
   document.getElementById('channel-list').innerHTML = html;
   updateAwarenessDisplay();
+  requestAnimationFrame(drawSparklines);
 }
 
-// ── ASSUMPTIONS EDITOR ──────────────────────────────────────
+// ── SPARKLINES ───────────────────────────────────────────────
+function drawSparklines() {
+  CHANNELS.forEach(ch => {
+    const canvas = document.getElementById('spark-' + ch.id);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = 110, H = 44;
+    ctx.clearRect(0, 0, W, H);
+
+    const baseSpend  = ch.base * S.budget * 1e6;
+    const curSpend   = (S.alloc[ch.id] || 0) * S.budget * 1e6;
+    const baseReturn = S.baseAllocWeightedAvg > 0 ? 434 * ((S.rois[ch.id] || ch.roi) / S.baseAllocWeightedAvg) : 0;
+
+    // Build curve points: 0.05× to 3.5× baseline
+    const pts = [];
+    for (let r = 0.05; r <= 3.51; r += 0.05) {
+      let df;
+      if (r >= 1) {
+        df = Math.sqrt(1 / r);
+      } else {
+        switch (ch.belowBase) {
+          case 'rising': df = Math.sqrt(1 / r); break;
+          case 'flat':   df = Math.pow(1 / r, 0.2); break;
+          case 'cliff':  df = r >= 0.5 ? 1.0 : r / 0.5; break;
+          default:       df = 1.0;
+        }
+      }
+      pts.push({ r, y: baseReturn * df });
+    }
+
+    const maxY  = Math.max(...pts.map(p => p.y));
+    const maxR  = 3.5;
+    const pad   = { l: 3, r: 4, t: 4, b: 4 };
+    const plotW = W - pad.l - pad.r;
+    const plotH = H - pad.t - pad.b;
+
+    function toX(r) { return pad.l + (r / maxR) * plotW; }
+    function toY(y) { return pad.t + plotH - (y / maxY) * plotH; }
+
+    // Draw curve — split at baseline into two colors
+    const drawSegment = (filter, color) => {
+      const seg = pts.filter(filter);
+      if (seg.length < 2) return;
+      ctx.beginPath();
+      ctx.moveTo(toX(seg[0].r), toY(seg[0].y));
+      seg.slice(1).forEach(p => ctx.lineTo(toX(p.r), toY(p.y)));
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    };
+
+    // Subtle fill under curve
+    ctx.beginPath();
+    ctx.moveTo(toX(pts[0].r), toY(pts[0].y));
+    pts.forEach(p => ctx.lineTo(toX(p.r), toY(p.y)));
+    ctx.lineTo(toX(pts[pts.length-1].r), toY(0));
+    ctx.lineTo(toX(pts[0].r), toY(0));
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(232,88,26,0.04)';
+    ctx.fill();
+
+    drawSegment(p => p.r <= 1.02, '#378ADD');  // below baseline — blue
+    drawSegment(p => p.r >= 0.98, '#E8581A');  // above baseline — orange
+
+    // Vertical dashed line at baseline (ratio=1)
+    ctx.beginPath();
+    ctx.setLineDash([2, 2]);
+    ctx.moveTo(toX(1.0), pad.t);
+    ctx.lineTo(toX(1.0), pad.t + plotH);
+    ctx.strokeStyle = 'rgba(100,116,139,0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Current allocation marker — solid vertical line in channel color
+    const curR = baseSpend > 0 ? curSpend / baseSpend : 1;
+    const clampedR = Math.min(curR, maxR);
+    ctx.beginPath();
+    ctx.moveTo(toX(clampedR), pad.t);
+    ctx.lineTo(toX(clampedR), pad.t + plotH);
+    ctx.strokeStyle = ch.color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Dot at intersection
+    const curY = baseReturn * (() => {
+      if (curR >= 1) return Math.sqrt(1 / curR);
+      switch (ch.belowBase) {
+        case 'rising': return Math.sqrt(1 / curR);
+        case 'flat':   return Math.pow(1 / curR, 0.2);
+        case 'cliff':  return curR >= 0.5 ? 1.0 : curR / 0.5;
+        default:       return 1.0;
+      }
+    })();
+    ctx.beginPath();
+    ctx.arc(toX(clampedR), toY(curY), 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = ch.color;
+    ctx.fill();
+  });
+}
+
+
 function renderAssumptions() {
   let html = `
   <div style="padding:10px 24px 12px;background:var(--bg-warm);border-bottom:1px solid var(--rule-light);font-size:11px;color:var(--ink-3);line-height:1.6;">
@@ -1092,6 +1228,8 @@ function updateROI(id, val, fromAssump) {
   if (isNaN(v) || v < 0.1) return;
   S.rois[id] = v;
   if (!fromAssump) S.roiConfs[id] = 'confirmed';
+  // Re-freeze normalization denominator when weights change
+  S.baseAllocWeightedAvg = CHANNELS.reduce((s, c) => s + c.base * (S.rois[c.id] || c.roi), 0);
   renderChannels(); renderROITable(); updateHero();
 }
 
@@ -1299,13 +1437,18 @@ function optimize() {
 
   const prev      = {...S.alloc};
   const MAX_ITER  = 800;
-  const MAX_ALLOC = 0.35;
   const CONVERGE  = 2.0;  // stop when best-worst marginal gap < $2/$
 
   // Precompute hard floors from user MIN% inputs
   const floors = {};
   CHANNELS.forEach(ch => {
     floors[ch.id] = Math.max(0.005, (S.mins[ch.id] || 0) / 100);
+  });
+
+  // Precompute per-channel caps from user MAX% inputs
+  const caps = {};
+  CHANNELS.forEach(ch => {
+    caps[ch.id] = Math.min(1.0, Math.max(floors[ch.id], (S.maxs[ch.id] || 35) / 100));
   });
 
   // ── AWARENESS FLOOR ──────────────────────────────────────
@@ -1327,17 +1470,35 @@ function optimize() {
     floors['ctvdom']= Math.max(floors['ctvdom'], awarFloor * 0.45);
   }
 
-  // Enforce floors on starting allocation
-  CHANNELS.forEach(ch => {
-    if (S.alloc[ch.id] < floors[ch.id]) S.alloc[ch.id] = floors[ch.id];
-  });
-  const floorSum = Object.values(floors).reduce((t,v)=>t+v, 0);
-  if (floorSum >= 1) {
-    CHANNELS.forEach(ch => { S.alloc[ch.id] = floors[ch.id] / floorSum; });
-  } else {
-    const s = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
-    CHANNELS.forEach(ch => { S.alloc[ch.id] /= s; });
+  // Helper: clamp all allocs to [floor, cap] then re-normalize.
+  // When floors sum to ≥1 (fully constrained), distribute proportionally to floors.
+  function clampAndNormalize() {
+    CHANNELS.forEach(ch => {
+      S.alloc[ch.id] = Math.min(caps[ch.id], Math.max(floors[ch.id], S.alloc[ch.id]));
+    });
+    const floorSum = Object.values(floors).reduce((t,v)=>t+v, 0);
+    const capSum   = Object.values(caps).reduce((t,v)=>t+v, 0);
+    if (floorSum >= 1) {
+      // Floors consume all budget — normalize to floors
+      CHANNELS.forEach(ch => { S.alloc[ch.id] = floors[ch.id] / floorSum; });
+      return;
+    }
+    if (capSum <= 1.0001) {
+      // Caps are fully binding (min==max or caps sum ≤ 1) — normalize to caps
+      CHANNELS.forEach(ch => { S.alloc[ch.id] = caps[ch.id] / capSum; });
+      return;
+    }
+    let s = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
+    if (s > 0) CHANNELS.forEach(ch => { S.alloc[ch.id] /= s; });
+    CHANNELS.forEach(ch => {
+      S.alloc[ch.id] = Math.min(caps[ch.id], Math.max(floors[ch.id], S.alloc[ch.id]));
+    });
+    s = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
+    if (s > 0) CHANNELS.forEach(ch => { S.alloc[ch.id] /= s; });
   }
+
+  // Enforce floors AND caps on starting allocation before loop
+  clampAndNormalize();
 
   // Marginal return: d(channelImpact)/d(spend) at current allocation
   function marginal(id) {
@@ -1354,11 +1515,21 @@ function optimize() {
   function score(id) {
     const ch = CHANNELS.find(c => c.id === id);
     const mr = marginal(id);
-    if (S.objective === 'roi')   return mr;
-    if (S.objective === 'cpm')   return 1 / (S.cpms[id] || 10);
-    if (S.objective === 'reach') return (1 / (S.cpms[id] || 10)) * (ch.funnel === 'upper' ? 1.5 : 1.0);
-    const cb = ['search','ota','social','dv360'].includes(id) ? 1.3
-             : ['tv','ooh','print'].includes(id) ? 0.7 : 1.0;
+    if (S.objective === 'roi') return mr;
+    if (S.objective === 'cpm') {
+      // Lower CPM = better. Invert and scale to marginal-return range.
+      const maxCPM = Math.max(...CHANNELS.map(c => S.cpms[c.id] || c.cpmDef));
+      return mr * (maxCPM / (S.cpms[id] || ch.cpmDef));
+    }
+    if (S.objective === 'reach') {
+      // Max impressions = lower CPM + upper funnel bonus
+      const maxCPM = Math.max(...CHANNELS.map(c => S.cpms[c.id] || c.cpmDef));
+      const funnelBonus = ch.funnel === 'upper' ? 1.6 : ch.funnel === 'mid' ? 1.2 : 0.8;
+      return mr * (maxCPM / (S.cpms[id] || ch.cpmDef)) * funnelBonus;
+    }
+    // 'canada' / performance: strong lower-funnel bias
+    const cb = ['search','ota','social','dv360'].includes(id) ? 1.6
+             : ['tv','ooh','print'].includes(id) ? 0.5 : 1.0;
     return mr * cb;
   }
 
@@ -1372,8 +1543,15 @@ function optimize() {
   for (let iter = 0; iter < MAX_ITER; iter++) {
     const scores = {};
     CHANNELS.forEach(ch => { scores[ch.id] = adjustedScore(ch.id); });
-    const vals   = Object.values(scores);
-    const avg    = vals.reduce((t,v)=>t+v, 0) / vals.length;
+
+    // Exclude floor-bound and cap-bound channels from the avg so they don't
+    // suppress the mean and prevent valid donor/recipient classification.
+    const mobileChs = CHANNELS.filter(ch =>
+      S.alloc[ch.id] > floors[ch.id] + 0.001 && S.alloc[ch.id] < caps[ch.id] - 0.001
+    );
+    if (!mobileChs.length) break;
+    const mobileVals = mobileChs.map(ch => scores[ch.id]);
+    const avg = mobileVals.reduce((t,v)=>t+v, 0) / mobileVals.length;
 
     // Donors: below-average score AND above their floor
     const donors = CHANNELS.filter(ch =>
@@ -1381,7 +1559,7 @@ function optimize() {
     );
     // Recipients: above-average score AND below cap
     const recipients = CHANNELS.filter(ch =>
-      scores[ch.id] > avg && S.alloc[ch.id] < MAX_ALLOC
+      scores[ch.id] > avg && S.alloc[ch.id] < caps[ch.id] - 0.001
     );
 
     if (!donors.length || !recipients.length) break;
@@ -1409,26 +1587,16 @@ function optimize() {
     // Give to recipients
     recipients.forEach(ch => {
       const weight = (scores[ch.id] - avg) / rTotalWeight;
-      const give   = Math.min(stepPool * weight, MAX_ALLOC - S.alloc[ch.id]);
+      const give   = Math.min(stepPool * weight, caps[ch.id] - S.alloc[ch.id]);
       S.alloc[ch.id] += Math.max(0, give);
     });
 
-    // Normalize
-    const sum = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
-    CHANNELS.forEach(ch => { S.alloc[ch.id] /= sum; });
+    // Clamp and normalize — keeps all allocs strictly within [floor, cap]
+    clampAndNormalize();
   }
 
-  // Final normalize and hard-clamp floors
-  const total = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
-  CHANNELS.forEach(ch => { S.alloc[ch.id] /= total; });
-  CHANNELS.forEach(ch => {
-    if (S.alloc[ch.id] < floors[ch.id]) S.alloc[ch.id] = floors[ch.id];
-  });
-  const total2 = Object.values(S.alloc).reduce((t,v)=>t+v, 0);
-  CHANNELS.forEach(ch => { S.alloc[ch.id] /= total2; });
-  CHANNELS.forEach(ch => {
-    if (S.alloc[ch.id] < floors[ch.id] - 0.00001) S.alloc[ch.id] = floors[ch.id];
-  });
+  // Final hard clamp — guarantees constraints survive any floating point drift
+  clampAndNormalize();
 
   // Render delta table
   const deltas = CHANNELS.map(ch => ({
@@ -1485,7 +1653,8 @@ function onAwareness(v){
   document.getElementById('v-awareness').textContent = `${v}%`;
   updateAwarenessDisplay();
 }
-function onMin(id,v)  { S.mins[id]=Math.max(0,Math.min(30,parseInt(v)||0)); updateAwarenessDisplay(); }
+function onMin(id,v)  { S.mins[id]=Math.max(0,Math.min(S.maxs[id]||100,parseInt(v)||0)); renderChannels(); updateAwarenessDisplay(); }
+function onMax(id,v)  { S.maxs[id]=Math.max(S.mins[id]||0,Math.min(100,parseInt(v)||100)); renderChannels(); updateAwarenessDisplay(); }
 
 function updateAwarenessDisplay() {
   const combined = ((S.alloc['tv']||0) + (S.alloc['ctvdom']||0)) * 100;
@@ -1500,7 +1669,9 @@ function updateAwarenessDisplay() {
 }
 
 function resetAll() {
-  CHANNELS.forEach(c=>{S.alloc[c.id]=c.base;S.mins[c.id]=c.minDef;S.cpms[c.id]=c.cpmDef;S.rois[c.id]=c.roi;S.roiConfs[c.id]=c.roiConf;S.cpmConfs[c.id]=c.cpmConf;});
+  CHANNELS.forEach(c=>{S.alloc[c.id]=c.base;S.mins[c.id]=c.minDef;S.maxs[c.id]=c.maxDef;S.cpms[c.id]=c.cpmDef;S.rois[c.id]=c.roi;S.roiConfs[c.id]=c.roiConf;S.cpmConfs[c.id]=c.cpmConf;});
+  CHANNELS.forEach(c=>{ S.baseAlloc[c.id]=c.base; });
+  S.baseAllocWeightedAvg = CHANNELS.reduce((s, c) => s + c.base * c.roi, 0);
   S.budget=40;S.shoulder=30;S.objective='roi';S.awarenessFloor=20;S.optimized=false;
   document.getElementById('s-budget').value=40;document.getElementById('v-budget').textContent='$40.0M';
   document.getElementById('s-shoulder').value=30;document.getElementById('v-shoulder').textContent='Standard';
@@ -1672,8 +1843,8 @@ function onSplitChange(val) {
   updateMarketTotals();
   renderMarketViz();
   renderChannelMarketMatrix();
-}
   renderGRPTable();
+}
 
 function renderMarketRows(group, markets, alloc, containerId) {
   const totalBudget = S.budget * 1e6;
@@ -1851,7 +2022,7 @@ function renderGRPTable() {
   // Inlined to avoid declaration-order dependency.
   // = active_months × (52 ÷ 12), rounded. Must match FLIGHT_PATTERNS exactly.
   const ACTIVE_WEEKS_MAP = {
-    tv:     35,  // 8 active months: Jan-Apr, Aug-Dec
+    tv:     22,  // 5 active months: Jan-Mar, Sep-Oct
     ctvdom: 39,  // 9 active months: Jan-Apr, Aug-Dec
     ooh:    17,  // 4 active months: Feb-Mar, Nov-Dec
     digvid: 43,  // 10 active months: off Jun-Jul only
@@ -1864,10 +2035,10 @@ function renderGRPTable() {
   const awarChs = AWARENESS_CHANNELS.map(id => CHANNELS.find(c=>c.id===id));
 
   // Column layout: market | one per awareness channel | combined weekly GRPs | bar
-  const COL_MKT  = 200;
-  const COL_CH   = 90;
-  const COL_TOT  = 100;
-  const COL_BAR  = 130;
+  const COL_MKT  = 240;
+  const COL_CH   = 100;
+  const COL_TOT  = 110;
+  const COL_BAR  = 140;
   const totalW   = COL_MKT + awarChs.length * COL_CH + COL_TOT + COL_BAR;
   const cols     = `${COL_MKT}px ${awarChs.map(()=>COL_CH+'px').join(' ')} ${COL_TOT}px ${COL_BAR}px`;
   const rowStyle = `display:grid;grid-template-columns:${cols};`;
@@ -1876,28 +2047,33 @@ function renderGRPTable() {
 
   // Header row
   html += `<div style="${rowStyle}background:var(--bg-warm);border-bottom:2px solid var(--rule);">`;
-  html += `<div class="grp-cell" style="font-size:10px;font-weight:600;color:var(--ink-3);">Market</div>`;
+  html += `<div class="grp-cell" style="font-size:10px;font-weight:600;color:var(--ink-3);letter-spacing:.5px;text-transform:uppercase;">Market</div>`;
   awarChs.forEach(ch => {
     const wks = activeWeeks(ch.id);
-    html += `<div class="grp-cell grp-num" style="font-size:10px;font-weight:600;color:var(--ink-3);line-height:1.4;">${ch.name}<div style="font-size:9px;color:var(--ink-4);font-weight:400;font-family:'JetBrains Mono';">${wks} active wks</div></div>`;
+    const shortName = ch.name === 'Broadcast TV' ? 'Broadcast TV' : ch.name === 'CTV / Streaming TV' ? 'CTV / Streaming' : ch.name === 'Out of Home' ? 'Out of Home' : ch.name === 'Digital Video' ? 'Digital Video' : ch.name;
+    html += `<div class="grp-cell grp-num" style="flex-direction:column;align-items:flex-end;justify-content:center;padding:8px 14px;"><div style="font-size:10px;font-weight:600;color:var(--ink-3);text-align:right;letter-spacing:.3px;">${shortName}</div><div style="font-size:9px;color:var(--ink-4);font-family:'JetBrains Mono';margin-top:2px;text-align:right;">${wks} active wks</div></div>`;
   });
-  html += `<div class="grp-cell grp-num" style="font-size:10px;font-weight:600;color:var(--ink-3);line-height:1.4;">Combined<div style="font-size:9px;color:var(--ink-4);font-weight:400;font-family:'JetBrains Mono';">wkly GRPs</div></div>`;
-  html += `<div class="grp-cell" style="font-size:9px;color:var(--ink-4);padding-left:16px;font-family:'JetBrains Mono';">vs. other markets</div>`;
+  html += `<div class="grp-cell grp-num" style="flex-direction:column;align-items:flex-end;justify-content:center;padding:8px 14px;"><div style="font-size:10px;font-weight:600;color:var(--ink-3);text-align:right;letter-spacing:.3px;">Combined</div><div style="font-size:9px;color:var(--ink-4);font-family:'JetBrains Mono';margin-top:2px;text-align:right;">wkly GRPs</div></div>`;
+  html += `<div class="grp-cell" style="font-size:9px;color:var(--ink-4);padding-left:16px;font-family:'JetBrains Mono';align-items:center;">vs. other markets</div>`;
   html += `</div>`;
 
   // Per-market rows
+  // mktShare = this market's allocation as a share of the total US pool (not total budget),
+  // so that US channel spend is distributed correctly across US DMAs only.
+  const usPool = Object.values(MKT.domAlloc).reduce((s,v)=>s+v, 0);
   const marketGRPs = [];
   usMkts.forEach(mkt => {
     const mktAlloc     = MKT.domAlloc[mkt.id] || 0;
-    const mktShare     = totalBudget > 0 ? mktAlloc / totalBudget : 0;
+    const mktShare     = usPool > 0 ? mktAlloc / usPool : 0;
     const pop          = DMA_ADULTS[mkt.id];
     const chWeeklyGRPs = {};
     let combinedGRP    = 0;
 
     awarChs.forEach(ch => {
       const wks          = activeWeeks(ch.id);
-      const chBudget     = (S.alloc[ch.id] || 0) * totalBudget;
-      const mktChBudget  = chBudget * mktShare;
+      // US channel budget = channel alloc% × total budget × US split%
+      const usChBudget   = (S.alloc[ch.id] || 0) * totalBudget * (MKT.usPct / 100);
+      const mktChBudget  = usChBudget * mktShare;
       const weeklyBudget = wks > 0 ? mktChBudget / wks : 0;
       const cpm          = S.cpms[ch.id] || 10;
       const weeklyImps   = weeklyBudget / (cpm / 1000);
@@ -1913,7 +2089,7 @@ function renderGRPTable() {
 
   marketGRPs.forEach(({ mkt, chWeeklyGRPs, combinedGRP, mktAlloc }) => {
     const barW       = Math.round((combinedGRP / maxGRP) * 100);
-    const totalColor = combinedGRP >= 150 ? 'var(--green)' : combinedGRP >= 75 ? 'var(--orange)' : 'var(--ink-3)';
+    const totalColor = combinedGRP >= 75 ? 'var(--green)' : combinedGRP >= 40 ? 'var(--orange)' : 'var(--ink-3)';
     html += `<div style="${rowStyle}border-bottom:1px solid var(--rule-light);">`;
     html += `<div class="grp-cell">
       <span style="margin-right:5px;">${mkt.flag}</span><strong style="font-size:12px;">${mkt.name}</strong>
@@ -1921,7 +2097,7 @@ function renderGRPTable() {
     </div>`;
     awarChs.forEach(ch => {
       const g = chWeeklyGRPs[ch.id];
-      const c = g >= 50 ? 'var(--green)' : g >= 20 ? 'var(--orange)' : 'var(--ink-3)';
+      const c = g >= 30 ? 'var(--green)' : g >= 15 ? 'var(--orange)' : 'var(--ink-3)';
       html += `<div class="grp-cell grp-num" style="color:${c};font-size:14px;font-weight:500;">${g.toFixed(1)}</div>`;
     });
     html += `<div class="grp-cell grp-num" style="color:${totalColor};font-size:16px;font-weight:700;">${combinedGRP.toFixed(0)}</div>`;
@@ -1952,14 +2128,16 @@ function renderGRPTable() {
   html += `
   <div style="padding:12px 16px;font-size:10px;color:var(--ink-4);border-top:1px solid var(--rule-light);line-height:1.7;">
     <strong style="color:var(--ink-3);">Weekly GRPs during active flight</strong> = (annual channel budget &times; market share &divide; active weeks &divide; CPM &times; 1,000) &divide; DMA adults 18+ &times; 100.
-    Active weeks match channel flight patterns in the media plan (Broadcast TV 35, CTV 39, OOH 17, Digital Video 43).
+    Active weeks match channel flight patterns in the media plan (Broadcast TV 22, CTV 39, OOH 17, Digital Video 43).
     Population: Nielsen 2024-25 TV homes &times; 2.5 adults/household. CPMs are benchmarks &mdash; replace with contracted buy data.
     Canada excluded.<br>
     <strong style="color:var(--ink-3);">Benchmarks:</strong>
-    <span style="color:var(--green);">&#9632;</span> 150+ combined wkly GRPs = strong &nbsp;
-    <span style="color:var(--orange);">&#9632;</span> 75&ndash;150 = moderate &nbsp;
-    <span style="color:var(--ink-4);">&#9632;</span> &lt;75 = light
+    <span style="color:var(--green);">&#9632;</span> 75+ combined wkly GRPs = strong &nbsp;
+    <span style="color:var(--orange);">&#9632;</span> 40&ndash;75 = moderate &nbsp;
+    <span style="color:var(--ink-4);">&#9632;</span> &lt;40 = light
   </div>`;
+
+  el.innerHTML = html;
 }
 
 function applyMarkets() {
@@ -2036,7 +2214,7 @@ const FLIGHT_PATTERNS = {
   ctvdom:  [1,1,1,1,0,0,0,1,1,1,1,1], // TV heavy Q1, Q4
   audio:   [0,1,1,1,1,1,0,0,1,1,1,0], // selective
   ooh:     [0,1,1,0,0,0,0,0,0,0,1,1], // peak awareness windows
-  tv:      [1,1,1,0,0,0,0,1,1,1,1,1], // off May-Jul (heat, low conversion)
+  tv:      [1,1,1,0,0,0,0,0,1,1,0,0], // Jan-Mar + Sep-Oct only
   print:   [0,1,0,0,0,0,0,0,0,0,1,0], // Feb and Nov trade
 };
 
@@ -2298,7 +2476,7 @@ function generatePlan() {
     ctvdom:  `<strong>Q1, Q3–Q4 flighting.</strong> Broadcast complement using CTV/AVOD for incremental reach against cord-cutters. Broadcaster Video on Demand (BVOD) for UK/Ireland (managed separately). Dick Clark's Rockin' Eve placement model for Q4 reach spike. Disney+ and premium AVOD partners for family audience.`,
     audio:   `<strong>Selective flighting Feb–May, Sep–Nov.</strong> Streaming audio (Spotify/Pandora/iHeart) for drive-market commuter audience. Contextual targeting against travel and tourism content. Pride Radio activation in Q4 aligned with Come Out with Pride festival. Pause Jun–Jul and Dec.`,
     ooh:     `<strong>Feb–Mar (awareness peak) and Nov–Dec (holiday).</strong> Priority markets: Atlanta, Boston, Chicago, New York, Philadelphia drive-market OOH. Canada: dynamic weather OOH in Toronto/Ontario and Montréal displaying current Orlando temperature vs. local temp ("Winter Doesn't Exist" model from Q4 2025 Canada campaign). Rates are estimates — replace with Outfront/Lamar contracted actuals.`,
-    tv:      `<strong>Q1 heavy, Q3 reactivation, Q4 close.</strong> Pause May–Jul: summer heat and theme park crowds reduce incremental conversion lift from awareness spend. W5 Global Ad Tracker surveys administered within one week of flight end — results inform Q3 reactivation decision. NBC Dick Clark's Rockin' Eve in Q4 for mass reach event. Target: Family "Target Moms" and Gen Pop segments per W5 SOW design.`,
+    tv:      `<strong>Q1 heavy (Jan–Mar), Sep–Oct reactivation.</strong> Concentrated flight maximizes weekly GRP delivery vs. year-round diffusion. Pause Apr–Aug and Nov–Dec: summer heat and shoulder season reduce incremental conversion lift from awareness spend. W5 Global Ad Tracker surveys administered within one week of flight end — results inform Sep–Oct reactivation decision. NBC Dick Clark's Rockin' Eve excluded from this pattern. Target: Family "Target Moms" and Gen Pop segments per W5 SOW design.`,
     print:   `<strong>Feb (trade) and Nov (consumer).</strong> Minimal allocation — brand adjacency and editorial credibility value only. Feb: travel trade publications (TTG, Travel Bulletin) aligned with WTM London and trade missions. Nov: consumer holiday gift travel features. Below-benchmark ROI confirmed; maintain for brand adjacency benefit in key editorial titles.`,
   };
 
@@ -2465,17 +2643,24 @@ function applyFlowFilter() { renderFlowChart(); }
 //   Doubling spend → 1.41× return (not 2×). Halving → 0.71×.
 
 function calcChannelReturns() {
-  const defaultWROI = CHANNELS.reduce((s,ch) => s + ch.base * ch.roi, 0);
+  // Normalization denominator is frozen at baseline — never recalculated.
+  // This means the optimizer moving allocations toward high-ROI channels
+  // doesn't suppress their implied returns. Only editing weights in Assumptions
+  // should change the denominator (via resetBaseAvg()).
+  const denominator = S.baseAllocWeightedAvg || CHANNELS.reduce((s, c) => s + c.base * c.roi, 0);
+
   return CHANNELS.map(ch => {
-    const baselineReturn = 434 * (ch.roi / defaultWROI);
-    const currentSpend   = (S.alloc[ch.id] || 0) * S.budget * 1e6;
-    const defaultSpend   = ch.base * 40e6;
+    const baselineReturn = denominator > 0
+      ? 434 * ((S.rois[ch.id] || ch.roi) / denominator)
+      : 0;
+    const currentSpend  = (S.alloc[ch.id] || 0) * S.budget * 1e6;
+    const defaultSpend  = ch.base * S.budget * 1e6;
 
     if (defaultSpend === 0 || currentSpend === 0) {
       return { ch, baselineReturn, currentSpend, defaultSpend, dimFactor:0, effectiveReturn:0, channelImpact:0 };
     }
 
-    const ratio = currentSpend / defaultSpend; // >1 = over baseline, <1 = under baseline
+    const ratio = currentSpend / defaultSpend;
     let dimFactor;
 
     if (ratio >= 1) {
@@ -2486,21 +2671,22 @@ function calcChannelReturns() {
       switch (ch.belowBase) {
 
         case 'rising':
-          // Targeting/intent channels: cutting concentrates on highest-value audience
+          // Intent/targeting channels: steep efficiency gain as spend cuts
+          // — concentrates on highest-value audience signals
           dimFactor = Math.sqrt(1 / ratio);
           break;
 
         case 'flat':
-          // Scalable channels: gentle efficiency slope as spend falls.
-          // At baseline: 1.0. At zero: 0.6. Linear between.
-          // Prevents optimizer treating these as free donor channels.
-          dimFactor = Math.max(0.5, 1.0 - 0.4 * (1 - ratio));
+          // Reach channels (digvid, audio, print): modest efficiency gain as spend cuts
+          // — fewer placements but similar per-placement efficiency, gentle improvement
+          dimFactor = Math.pow(1 / ratio, 0.2);
           break;
 
         case 'cliff':
-          // Reach-threshold channels: flat above 50% of baseline, then collapses.
-          const floorRatio = 0.5;
-          dimFactor = ratio >= floorRatio ? 1.0 : ratio / floorRatio;
+          // Threshold reach channels (TV, CTV, OOH): efficiency holds flat as spend cuts
+          // down to ~50% of baseline (still above min effective frequency), then drops
+          // sharply below that — can't build meaningful reach at very low spend
+          dimFactor = ratio >= 0.5 ? 1.0 : ratio / 0.5;
           break;
 
         default:
